@@ -1,0 +1,23 @@
+.heart {
+  position: absolute;
+  color: rgba(255, 59, 130, 0.6); /* Pink color with some transparency */
+  font-size: 20px;
+  opacity: 0.8; /* Slightly transparent */
+  animation: float 5s linear infinite;
+  transition: transform 0.5s ease-in-out; /* Smooth rotation transition */
+}
+
+
+@keyframes float {
+  0% {
+      transform: translate(0, 100vh) scale(0.5);
+      opacity: 0;
+  }
+  50% {
+      opacity: 1;
+  }
+  100% {
+      transform: translate(calc(-50vw + 100vw * var(--random-x)), calc(-100vh * var(--random-y))) scale(1.5);
+      opacity: 0;
+  }
+}

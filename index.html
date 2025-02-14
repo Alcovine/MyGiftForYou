@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Hearts Animation</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .heart {
+            position: absolute;
+            color: rgba(223, 42, 177, 0.6); 
+            font-size: 20px;
+            opacity: 0.8; 
+            animation: float 10s linear infinite;
+            transition: transform 0.5s ease-in-out; 
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 100vh) scale(0.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50vw + 100vw * var(--random-x)), -100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .text {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            width: 100%;
+            bottom: 20%;
+        }
+
+        .center-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px;
+            font-size: 20px;
+            color: white;
+            background-color: #ff3b82;
+            border: none;
+            border-radius: 50%; /* Circular button */
+            cursor: pointer;
+            z-index: 10;
+            width: 100px; /* Width for the circle */
+            height: 100px; /* Height for the circle */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .letter-frame {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            color: black;
+            border: 5px solid #ff3b82;
+            border-radius: 15px;
+            width: 60%;
+            max-width: 600px;
+            text-align: center;
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text">This is my Valentine's gift for you, I know it's not much, but this is all I can do, I hope you'll love it💖</div>
+        <button class="center-button" onclick="startAnimation()">Click me</button>
+        <div class="letter-frame" id="letter">
+            My Dearest wifie,
+
+            Happy Valentine’s Day, my love! 💖
+            I just want to take a moment to express how incredibly grateful I am for you. Thank you for loving me exactly as I am, for seeing me at my best and my worst, and still choosing to be by my side. Your love fills my heart in ways I never thought possible.
+
+            When I get lost in my thoughts and start overthinking, you're always there with the perfect words to bring me back to peace. You have this amazing way of reassuring me, making me feel safe and understood, no matter what’s going on in my mind.
+            
+            I’m beyond lucky to have you. You make every day brighter, and every moment with you is a gift. I love you more than words could ever fully express.
+            
+            Thank you for being my rock, my confidant, and my everything.
+            
+            I Loveee youuuuu po so much Loviee💖💖.
+        </div>
+    </div>
+
+    <script>
+        function createHeart() {
+            for (let i = 0; i < 6; i++) {
+                const heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "&#10084;";
+                document.querySelector(".container").appendChild(heart);
+
+                const size = Math.random() * 60 + 20;
+                heart.style.fontSize = `${size}px`;
+
+                // Random position of the heart
+                const leftPosition = Math.random() * 100 + "vw";
+                const topPosition = Math.random() * 100 + "vh";
+                heart.style.left = leftPosition;
+                heart.style.top = topPosition;
+
+                heart.style.animationDuration = Math.random() * 3 + 3 + "s"; // Slower upward motion
+
+                // Random horizontal direction (left or right) and vertical movement
+                const randomX = Math.random(); // Horizontal movement factor
+                const randomY = Math.random();
+
+                // Match rotation to horizontal movement (randomX)
+                const rotation = randomX > 0.5 ? 30 : -30; // Rotate right if randomX > 0.5, else rotate left
+
+                // Adjust the translation to move horizontally and vertically
+                heart.style.setProperty('--random-x', randomX);
+                heart.style.setProperty('--random-y', randomY);
+
+                // Calculate the correct rotation based on movement
+                const rotationDegree = randomX > 0.5 ? (randomX * 45) : -(randomX * 45); // more dynamic rotation angle
+
+                // Apply the rotation and animate movement
+                heart.style.transform = `rotate(${rotationDegree}deg)`;
+
+                // Remove the heart after animation duration
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000); // Time for animation duration to complete
+            }
+        }
+
+        function startAnimation() {
+            document.querySelector('.center-button').style.display = 'none';
+            document.getElementById('letter').style.display = 'block';
+            setTimeout(() => {
+                setInterval(createHeart, 20); // Display hearts continuously
+            }, 1); // Delay before hearts appear after the message
+        }
+    </script>
+</body>
+</html>
